@@ -28,6 +28,9 @@ chdir APP_ROOT do
   puts "\n== Removing old logs and tempfiles =="
   system! 'bin/rails log:clear tmp:clear'
 
+  puts "\n==Adding seed data =="
+  system! 'psql -d homeday_development -f db/data.sql'
+  
   puts "\n== Restarting application server =="
   system! 'bin/rails restart'
 end
