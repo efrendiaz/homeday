@@ -2,9 +2,9 @@ class PropertiesController < ApplicationController
   def index
     outcome = GetSimilarProperties.run(property_params)
     if outcome.success?
-      render json: { properties: outcome.result }
+      render json: outcome.result.map{ |property| PropertyPresenter.present(property) }
     else
-      render json: { error: outcome.errors.message }
+      render json: { errors: outcome.errors.message }
     end
   end
 
